@@ -7,9 +7,16 @@ root = tk.Tk()
 # Name the window
 root.title("Calculator")
 
+# Step 7: Create a horizontal scrollbar
+scrollbar = tk.Scrollbar(root, orient='horizontal')
+
 # Step 5: Set the background color of the window
 entry = tk.Entry(root, width=9, font=('Arial', 38, 'bold'),state='readonly')
 entry.pack(pady=(30, 10))
+
+# Step 8: Scrollbar for the entry widget
+scrollbar.config(command=entry.xview)
+scrollbar.pack()
 
 #Step 2: Set the size of the window
 # creating the frames
