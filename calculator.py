@@ -37,40 +37,69 @@ def command(text):
 	entry.insert(tk.END, text)
 	entry.config(state='readonly')
 
+# Step 10: Adding the AC button to clear the entry widget
+def cmd_ac():
+	entry.config(state='normal')
+	entry.delete(0, tk.END)
+	entry.config(state='readonly')
+
+# Step 9 adding an Equal button
+def cmd_equal():
+	entry.config(state='normal')
+	txt = entry.get().replace('x', '*')
+
+	try:
+		result = eval(txt)
+
+	except:
+		result = 'INVALID'
+	entry.delete(0, tk.END)
+	entry.insert(tk.END, result)
+	entry.config(state='readonly')
+
 
 # Step 3: Create the buttons
 # creating the buttons
 # the buttons are created using a function to avoid repetition of codew
 def buttons(text, frame):
-	button = tk.Button(frame, text=text, font=('Arial', 20), image=pixel, bg="#333300", fg="white", compound="center")
-	return button
+    button = tk.Button(frame, text=text, font=('Arial', 20), image=pixel, bg="#333300", fg="white", compound="center",
+                       command=lambda :command(text))
+    return button
 
-def button_ops(text, frame, bg, fg):
-	button = tk.Button(frame, text=text, font=('Arial', 20), image=pixel, bg=bg, fg=fg, activebackground="black", compound="center")
-	return button
+
+def buttons_ops(text, frame, bg, fg):
+    button = tk.Button(frame, text=text, font=('Arial', 20), image=pixel, bg=bg, fg=fg, activebackground="black",
+                        compound="center", command=lambda:command(text))
+    return button
 
 # Step 4: Place the buttons on the window
 # Button 1, 4, 7 in frame1
 btn1 = buttons('1', frame1).pack()
 btn4 = buttons('4', frame1).pack()
 btn7 = buttons('7', frame1).pack()
+# Step: 10 Adding the AC button
+ac = tk.Button(frame1, text='AC', font=('Arial', 20), image=pixel, bg='#666699', fg='white', activebackground='darkred', compound="center",command=lambda: cmd_ac()).pack()
+
 
 # Button 2, 5, 8, 0 in frame2
 btn2 = buttons('2', frame2).pack()
 btn5 = buttons('5', frame2).pack()
 btn8 = buttons('8', frame2).pack()
-btn0 = button_ops('0', frame2, '#333300', 'white').pack()
+btn0 = buttons_ops('0', frame2, '#333300', 'white').pack()
 
-# Button 3, 6, 9 in frame3
+# Button 3, 6, 9 in frame3 and the equal button
 btn3 = buttons('3', frame3).pack()
 btn6 = buttons('6', frame3).pack()
 btn9 = buttons('9', frame3).pack()
+equal= tk.Button(frame3, text='=', font=('Arial', 20), image=pixel, bg='white', fg='black', activebackground="black",
+                        compound="center", command=lambda: cmd_equal()).pack()
+
 
 # Button +, -, *, / in frame4
-plus = button_ops('+', frame4, 'black', 'white').pack()
-minus = button_ops('-', frame4, 'black', 'white').pack()
-mul = button_ops('*', frame4, 'black', 'white').pack()
-div = button_ops('/', frame4, 'black', 'white').pack()
+plus = buttons_ops('+', frame4, 'black', 'white').pack()
+minus = buttons_ops('-', frame4, 'black', 'white').pack()
+mul = buttons_ops('*', frame4, 'black', 'white').pack()
+div = buttons_ops('/', frame4, 'black', 'white').pack()
 
 # keeps the window open
 root.mainloop()
